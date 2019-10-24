@@ -15,6 +15,8 @@ export const StoriesContainer = () => {
     getStoryIds().then(storyId => setStoryIds(storyId))
   }, [])
 
+  console.log(count)
+
   return (
     <>
       <GlobalStyle />
