@@ -1,31 +1,29 @@
-import React, { useEffect, useState } from "react"
-import { getStoryIds } from "../services/hnApi"
-import { Story } from "../components/Story"
-import { useInifiteScroll } from "../hooks/useInfiniteScroll"
+import React, { useEffect, useState } from "react";
+import { getStoryIds } from "../services/hnApi";
+import { Story } from "../components/Story";
 import {
   GlobalStyle,
   StoriesContainerWrapper
-} from "../styles/StoriesContainerStyles"
+} from "../styles/StoriesContainerStyles";
+import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
 
 export const StoriesContainer = () => {
-  const { count } = useInifiteScroll()
-  const [storyIds, setStoryIds] = useState([])
+  const { count } = useInfiniteScroll();
+  const [storyIds, setStoryIds] = useState([]);
 
   useEffect(() => {
-    getStoryIds().then(storyId => setStoryIds(storyId))
-  }, [])
-
-  console.log(count)
+    getStoryIds().then(data => setStoryIds(data));
+  }, []);
 
   return (
     <>
       <GlobalStyle />
-      <StoriesContainerWrapper>
+      <StoriesContainerWrapper data-test-id="stories-container">
         <h1>Hacker News Stories</h1>
-        {storyIds.slice(0, count).map(id => {
-          return <Story key={id} storyId={id} />
-        })}
+        {storyIds.slice(0, count).map(storyId => (
+          <Story key={storyId} storyId={storyId} />
+        ))}
       </StoriesContainerWrapper>
     </>
-  )
-}
+  );
+};
